@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="countyMap">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body ng-controller="mapController as mapCtrl">
+  <datamap 
+      map="mapCtrl.tennessee"
+      on-click="mapCtrl.selectCounty">
+  </datamap>
+  <ul>
+    <li ng-repeat="county in mapCtrl.selectedCounties">{{ county.name }}</li>
+  </ul>
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/topojson/topojson.js"></script>
+  <script src="bower_components/datamaps/dist/datamaps.all.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-datamaps/dist/angular-datamaps.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
