@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body ng-controller="mapController as mapCtrl">
-  <datamap 
-      map="mapCtrl.tennessee"
-      on-click="mapCtrl.selectCounty">
-  </datamap>
+<body ng-controller="mainController">
+  <county-map selected-counties="selectedCounties" key="name"></county-map>
   <ul>
-    <li ng-repeat="county in mapCtrl.selectedCounties">{{ county.name }}</li>
+    <li ng-repeat="county in counties">
+    <input ng-click="toggleCounty(county)" type="checkbox">{{ county.name }}
+    </li>
   </ul>
   <script src="bower_components/d3/d3.js"></script>
   <script src="bower_components/topojson/topojson.js"></script>
   <script src="bower_components/datamaps/dist/datamaps.all.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-datamaps/dist/angular-datamaps.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
