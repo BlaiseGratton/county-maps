@@ -27,9 +27,9 @@ app.controller('mainController', function($scope) {
 
   $scope.toggleCounty = function(county) {
     var idx = $scope.selectedCounties.indexOf(county);
-    if (idx < 0) 
+    if (idx < 0)
       $scope.selectedCounties.push(county);
-    else 
+    else
       $scope.selectedCounties.splice(idx, 1);
   };
 });
@@ -76,25 +76,32 @@ app.controller('mapController', function($scope) {
     var longerCollection = newNames.length > oldNames.length ? newNames : oldNames;
     var shorterCollection = oldNames.length < newNames.length ? oldNames : newNames;
     var difference = _.difference(longerCollection, shorterCollection);
-    $scope.selectCounty(difference[0]);
+    $scope.colorCounty(difference[0]);
   }, true);
 
-  $scope.selectCounty = function(countyName) {
-    var idx = $scope.selectedCounties.indexOf(countyName);
-    if (idx === -1) {
+  $scope.colorCounty = function(countyName) {
+    var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
+      return county[$scope.key] === countyName;
+    });
+    if (!!countyNotSelected.length) {
       $scope.tennessee.data[countyName] = { 'fillKey': 'selected' };
     } else {
       $scope.tennessee.data[countyName] = { 'fillKey': 'defaultFill' };
     }
   };
 
-  $scope.clickCounty = function(geography) {
-    $scope.selectCounty(geography.id);
-    var idx = $scope.selectedCounties.indexOf(geography.id);
-    if (idx > -1) 
+  $scope.toggleCounty = function(geography) {
+    var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
+      return county[$scope.key] === geography.id;
+    });
+    var clickedCounty = _.find($scope.counties, function(county) {
+      return county[$scope.key] === geography.id;
+    });
+    var idx = $scope.selectedCounties.indexOf(clickedCounty);
+    if (!!countyNotSelected.length)
       $scope.selectedCounties.splice(idx, 1);
-    else 
-      $scope.selectedCounties.push(geography.id);
+    else
+      $scope.selectedCounties.push(clickedCounty);
     $scope.$apply();
   }
 });
@@ -104,10 +111,11 @@ app.directive('countyMap', function() {
     restrict: 'EA',
     controller: 'mapController',
     template: '<datamap map="tennessee"' +
-                 'on-click="clickCounty"></datamap>',
+                 'on-click="toggleCounty"></datamap>',
     scope: {
       'selectedCounties': '=',
-      'key': '@'
+      'key': '@',
+      'counties': '='
     }
   };
 });

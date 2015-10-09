@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body ng-controller="mainController">
-  <county-map selected-counties="selectedCounties" key="name"></county-map>
+  <county-map selected-counties="selectedCounties" counties="counties" key="name"></county-map>
   <ul>
     <li ng-repeat="county in counties">
     <input ng-click="toggleCounty(county)" type="checkbox">{{ county.name }}
