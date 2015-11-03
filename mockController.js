@@ -8,7 +8,7 @@
   app.controller('mockController', function($scope) {
 
     $scope.selectedCounties = [
-      { Latitude: 35.691675, Longitude: -85.434046, ZoomLevel: 10, name: 'VAN BUREN' }
+      { Latitude: 35.691675, Longitude: -85.434046, ZoomLevel: 10, name: 'VAN BUREN' },
     ];
 
     $scope.toggleCounty = function(county) {

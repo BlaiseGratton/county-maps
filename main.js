@@ -1,6 +1,12 @@
 (function() {
   'use strict';
 
+  //THIS IS FOR THE EDGE CASE OF "VAN BUREN"
+  //"VAN BUREN" -> van_buren  
+  String.prototype.toLowerNoSpaces = function() {
+    return this.replace(' ', '_').toLowerCase();
+  }
+
   var app = angular.module('countyMap', ['datamaps']);
 
   app.controller('mapController', function($scope) {
@@ -20,7 +26,7 @@
         'defaultFill': '#cdcdcd'
       },
       data: {
-        'van buren': { 'fillKey': 'selected' }
+        'van_buren': { 'fillKey': 'selected' }
       },
       setProjection: function(element, options) {
         var offsetWidth = -100;
@@ -41,6 +47,7 @@
       }
     };
 
+    //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
     $scope.$watch('selectedCounties', function(newVal, oldVal) {
       var newNames = _.pluck(newVal, $scope.key);
       var oldNames = _.pluck(oldVal, $scope.key);
@@ -51,24 +58,25 @@
     }, true);
 
     $scope.colorCounty = function(countyName) {
-      if(!countyName) return; 
+      if(!countyName) return;
 
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key].toLowerCase() === countyName.toLowerCase();
+        return county[$scope.key].toLowerNoSpaces() === countyName.toLowerNoSpaces();
       });
       if (!!countyNotSelected.length) {
-        $scope.tennessee.data[countyName.toLowerCase()] = { 'fillKey': 'selected' };
+        $scope.tennessee.data[countyName.toLowerNoSpaces()] = { 'fillKey': 'selected' };
       } else {
-        $scope.tennessee.data[countyName.toLowerCase()] = { 'fillKey': 'defaultFill' };
+        $scope.tennessee.data[countyName.toLowerNoSpaces()] = { 'fillKey': 'defaultFill' };
       }
     };
 
+    //HANDLES ADDING OR DELETING ITEMS FROM selectedCounties. THIS TRIGGERS THE WATCHER
     $scope.toggleCounty = function(geography) {
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key].toLowerCase() === geography.id.toLowerCase();
+        return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
       });
       var clickedCounty = _.find($scope.counties, function(county) {
-        return county[$scope.key].toLowerCase() === geography.id.toLowerCase();
+        return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
       });
       var idx = $scope.selectedCounties.indexOf(clickedCounty);
       if (!!countyNotSelected.length)
