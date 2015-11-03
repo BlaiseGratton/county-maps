@@ -46,7 +46,7 @@
     };
 
     if(!!$scope.options.fills) {
-      
+      //TODO
     }
 
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.

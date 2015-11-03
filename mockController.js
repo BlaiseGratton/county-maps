@@ -22,7 +22,7 @@
     };
 
     $scope.mapOptions = {
-      'multiple' : true,
+      'multiple' : false,
       'fills' : {
         'selected' : '#0000ff',
         'defaultFill' : '#ff0000'
