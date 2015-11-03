@@ -50,21 +50,21 @@
 
     $scope.colorCounty = function(countyName) {
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key] === countyName;
+        return county[$scope.key].toLowerCase() === countyName.toLowerCase();
       });
       if (!!countyNotSelected.length) {
-        $scope.tennessee.data[countyName] = { 'fillKey': 'selected' };
+        $scope.tennessee.data[countyName.toLowerCase()] = { 'fillKey': 'selected' };
       } else {
-        $scope.tennessee.data[countyName] = { 'fillKey': 'defaultFill' };
+        $scope.tennessee.data[countyName.toLowerCase()] = { 'fillKey': 'defaultFill' };
       }
     };
 
     $scope.toggleCounty = function(geography) {
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key].toUpperCase() === geography.id.toUpperCase();
+        return county[$scope.key].toLowerCase() === geography.id.toLowerCase();
       });
       var clickedCounty = _.find($scope.counties, function(county) {
-        return county[$scope.key].toUpperCase() === geography.id.toUpperCase();
+        return county[$scope.key].toLowerCase() === geography.id.toLowerCase();
       });
       var idx = $scope.selectedCounties.indexOf(clickedCounty);
       if (!!countyNotSelected.length)
