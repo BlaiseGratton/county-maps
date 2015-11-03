@@ -2,7 +2,7 @@
   'use strict';
 
   //THIS IS FOR THE EDGE CASE OF "VAN BUREN"
-  //"VAN BUREN" -> van_buren  
+  //"VAN BUREN" -> van_buren
   String.prototype.toLowerNoSpaces = function() {
     return this.replace(' ', '_').toLowerCase();
   }
@@ -25,9 +25,7 @@
         'selected': '#a55',
         'defaultFill': '#cdcdcd'
       },
-      data: {
-        'van_buren': { 'fillKey': 'selected' }
-      },
+      data: {},
       setProjection: function(element, options) {
         var offsetWidth = -100;
         var offsetHeight = 100;
@@ -49,25 +47,25 @@
 
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
     $scope.$watch('selectedCounties', function(newVal, oldVal) {
-      var newNames = _.pluck(newVal, $scope.key);
-      var oldNames = _.pluck(oldVal, $scope.key);
-      var longerCollection = newNames.length > oldNames.length ? newNames : oldNames;
-      var shorterCollection = oldNames.length < newNames.length ? oldNames : newNames;
-      var difference = _.difference(longerCollection, shorterCollection);
-      $scope.colorCounty(difference[0]);
+      colorCounties(newVal);
     }, true);
 
-    $scope.colorCounty = function(countyName) {
-      if(!countyName) return;
+    function colorCounties(counties) {
+      if(!counties) return;
 
-      var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key].toLowerNoSpaces() === countyName.toLowerNoSpaces();
+      var selectedCountyNames = _.map(counties, function(county) {
+        return county[$scope.key].toLowerNoSpaces();
       });
-      if (!!countyNotSelected.length) {
-        $scope.tennessee.data[countyName.toLowerNoSpaces()] = { 'fillKey': 'selected' };
-      } else {
-        $scope.tennessee.data[countyName.toLowerNoSpaces()] = { 'fillKey': 'defaultFill' };
-      }
+
+      $scope.tennessee.data = _.mapObject($scope.tennessee.data, function(countyName) {
+        if(selectedCountyNames.indexOf(countyName) < 0) {
+          return { 'fillKey' : 'defaultFill' };
+        }
+      });
+
+      selectedCountyNames.forEach(function(countyName){
+        $scope.tennessee.data[countyName] = { 'fillKey' : 'selected' };
+      });
     };
 
     //HANDLES ADDING OR DELETING ITEMS FROM selectedCounties. THIS TRIGGERS THE WATCHER
