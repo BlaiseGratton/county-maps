@@ -61,10 +61,10 @@
 
     $scope.toggleCounty = function(geography) {
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key] === geography.id;
+        return county[$scope.key].toUpperCase() === geography.id.toUpperCase();
       });
       var clickedCounty = _.find($scope.counties, function(county) {
-        return county[$scope.key] === geography.id;
+        return county[$scope.key].toUpperCase() === geography.id.toUpperCase();
       });
       var idx = $scope.selectedCounties.indexOf(clickedCounty);
       if (!!countyNotSelected.length)
