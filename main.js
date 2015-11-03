@@ -19,7 +19,9 @@
         'selected': '#a55',
         'defaultFill': '#cdcdcd'
       },
-      data: {},
+      data: {
+        'van buren': { 'fillKey': 'selected' }
+      },
       setProjection: function(element, options) {
         var offsetWidth = -100;
         var offsetHeight = 100;
@@ -49,6 +51,8 @@
     }, true);
 
     $scope.colorCounty = function(countyName) {
+      if(!countyName) return; 
+
       var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
         return county[$scope.key].toLowerCase() === countyName.toLowerCase();
       });
