@@ -7,7 +7,11 @@
 
   app.controller('mockController', function($scope) {
 
-    $scope.selectedCounties = [];
+    $scope.selectedCounties = [
+      // { Latitude: 36.279462, Longitude: -82.137864, ZoomLevel: 10, name: 'CARTER' },
+      // { Latitude: 36.244605, Longitude: -87.096507, ZoomLevel: 10, name: 'CHEATHAM' },
+      // { Latitude: 35.48343, Longitude: -88.596989, ZoomLevel: 10, name: 'CHESTER' }
+    ];
 
     $scope.toggleCounty = function(county) {
       var idx = $scope.selectedCounties.indexOf(county);
@@ -16,6 +20,19 @@
       else
         $scope.selectedCounties.splice(idx, 1);
     };
+
+    $scope.mapOptions = {
+      'multiple' : true,
+      'fills' : {
+        'selected' : '#0000ff',
+        'defaultFill' : '#ff0000'
+      },
+      'onAfterCountySelect' : function(newCounty, geography) {
+        console.log(newCounty);
+        console.log(geography);
+        alert('mock controller callback!');
+      }
+    }
 
     //EXAMPLE COUNTY DATA TAKEN FROM SPOT
     $scope.counties = [

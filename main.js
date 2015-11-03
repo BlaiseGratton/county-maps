@@ -45,8 +45,12 @@
       }
     };
 
+    if(!!$scope.options.fills) {
+      
+    }
+
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
-    $scope.$watch('selectedCounties', function(newVal, oldVal) {
+    var deregister = $scope.$watch('selectedCounties', function(newVal, oldVal) {
       colorCounties(newVal);
     }, true);
 
@@ -68,21 +72,47 @@
       });
     };
 
+    $scope.$on('$destory', deregister);
+
     //HANDLES ADDING OR DELETING ITEMS FROM selectedCounties. THIS TRIGGERS THE WATCHER
-    $scope.toggleCounty = function(geography) {
-      var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-        return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
-      });
-      var clickedCounty = _.find($scope.counties, function(county) {
-        return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
-      });
-      var idx = $scope.selectedCounties.indexOf(clickedCounty);
-      if (!!countyNotSelected.length)
-        $scope.selectedCounties.splice(idx, 1);
-      else
-        $scope.selectedCounties.push(clickedCounty);
-      $scope.$apply();
+    //TODO: IF WE PASS IN A CONFIGURATION OBJECT, THIS COULD RUN A CALLBACK AND PASS IN THE NEW COUNTY
+
+    if($scope.options && $scope.options.multiple) {
+
+      $scope.toggleCounty = function(geography) {
+        var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
+          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+        });
+        var clickedCounty = _.find($scope.counties, function(county) {
+          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+        });
+        var idx = $scope.selectedCounties.indexOf(clickedCounty);
+        if (!!countyNotSelected.length)
+          $scope.selectedCounties.splice(idx, 1);
+        else
+          $scope.selectedCounties.push(clickedCounty);
+        $scope.$apply();
+
+        if(!!$scope.options.onAfterCountySelect) {
+          $scope.options.onAfterCountySelect(clickedCounty, geography);
+        }
+      }
+
+    } else {
+      $scope.toggleCounty = function(geography) {
+        var clickedCounty = _.find($scope.counties, function(county) {
+          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+        });
+
+        $scope.selectedCounties = [clickedCounty];
+        $scope.$apply();
+
+        if(!!$scope.options.onAfterCountySelect) {
+          $scope.options.onAfterCountySelect(clickedCounty, geography);
+        }
+      }
     }
+
   });
 
 }());
