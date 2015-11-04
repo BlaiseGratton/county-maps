@@ -5,26 +5,31 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.13.2/select.css"/>
 </head>
 <body ng-controller="mockController">
   <county-map
-    selected-counties="selectedCounties"
+    selected-counties="selection.selectedCounty"
     key="name"
     counties="counties"
-    options="mapOptions">
+    ptions="mapOptions">
   </county-map>
-  <ul>
-    <li ng-repeat="county in counties">
-    <input ng-click="toggleCounty(county)" checklist-model="selectedCounties" 
-        checklist-value="county" type="checkbox">{{ county.name }}
-    </li>
-  </ul>
+  <ui-select ng-model="selection.selectedCounty" style="width: 400px;">
+    <ui-select-match>
+      <span ng-bind="$select.selected.name"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="county in counties">
+      <span ng-bind="county.name"></span>
+    </ui-select-choices>
+  </ui-select>
   <script src="bower_components/d3/d3.js"></script>
   <script src="bower_components/topojson/topojson.js"></script>
   <script src="bower_components/datamaps/dist/datamaps.all.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-datamaps/dist/angular-datamaps.js"></script>
   <script src="checklist-model.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.13.2/select.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="main.js"></script>
   <script src="mockController.js"></script>

@@ -3,18 +3,18 @@
 (function() {
   'use strict';
 
-  var app = angular.module('countyMapDemo', ['countyMap', 'checklist-model']);
+  var app = angular.module('countyMapDemo', ['countyMap', 'checklist-model', 'ui.select']);
 
   app.controller('mockController', function($scope) {
 
-    $scope.selectedCounties = [
-      // { Latitude: 36.279462, Longitude: -82.137864, ZoomLevel: 10, name: 'CARTER' },
-      // { Latitude: 36.244605, Longitude: -87.096507, ZoomLevel: 10, name: 'CHEATHAM' },
-      // { Latitude: 35.48343, Longitude: -88.596989, ZoomLevel: 10, name: 'CHESTER' }
-    ];
+    $scope.selection = {
+        selectedCounty : {
+      }
+    };
 
     $scope.toggleCounty = function(county) {
-      var idx = $scope.selectedCounties.indexOf(county);
+      $scope.selectedCounties = [county];
+      //var idx = $scope.selectedCounties.indexOf(county);
       /*if (idx < 0)
         $scope.selectedCounties.push(county);
       else
@@ -28,7 +28,7 @@
         'defaultFill' : '#ff0000'
       },
       'onAfterCountySelect' : function(newCounty, geography) {
-        //$scope.selectedCounties.push(newCounty);
+        //$scope.selectedCounties = [newCounty];
         //console.log(newCounty);
         //console.log(geography);
       }
