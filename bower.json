@@ -2,7 +2,8 @@
   "name": "datamaps",
   "version": "0.0.0",
   "authors": [
-    "BlaiseGratton <blaisegratton@gmail.com>"
+    "BlaiseGratton <blaise.gratton@tn.gov>",
+    "AdamSheaffer <adam.sheaffer@tn.gov>"
   ],
   "license": "MIT",
   "ignore": [
@@ -13,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-datamaps": "~0.1.2"
+    "angular-datamaps": "~0.1.2",
+    "underscore": "~1.8.3"
   }
 }
