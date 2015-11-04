@@ -23,6 +23,11 @@
       fills: {},
       data: {},
       setProjection: function(element, options) {
+        var svg = element.childNodes[0];
+        svg.attributes.width.value = '849';
+        svg.attributes.height.value = '238';
+        svg.setAttribute('viewBox', '377 44 800 190');
+
         var offsetWidth = -100;
         var offsetHeight = 100;
 
