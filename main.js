@@ -27,6 +27,11 @@
         svg.attributes.width.value = '849';
         svg.attributes.height.value = '238';
         svg.setAttribute('viewBox', '377 44 800 190');
+        if (!!$scope.options.classes) {
+          $scope.options.classes.forEach(function(className){
+            svg.classList.add(className);
+          });
+        }
 
         var offsetWidth = -100;
         var offsetHeight = 100;
