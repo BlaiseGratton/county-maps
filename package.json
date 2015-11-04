@@ -1,0 +1,19 @@
+{
+  "name": "tn-datamap",
+  "version": "0.1.0",
+  "description": "Angular module for binding an interactive map of Tennesse counties with a data source",
+  "main": "mapDirective.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlaiseGratton/county-maps.git"
+  },
+  "author": "Blaise Gratton, Adam Sheaffer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BlaiseGratton/county-maps/issues"
+  },
+  "homepage": "https://github.com/BlaiseGratton/county-maps#readme"
+}
