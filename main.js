@@ -1,14 +1,14 @@
+'use strict';
 (function() {
-  'use strict';
 
   //EX: "VAN BUREN" -> "van_buren"
-  String.prototype.toLowerNoSpaces = function() {
+  String.prototype.countyMapsToLowerNoSpaces = function() {
     return this.replace(' ', '_').toLowerCase();
-  }
+  };
 
   var app = angular.module('countyMap', ['datamaps']);
 
-  app.controller('mapController', function($scope) {
+  app.controller('mapController', ['$scope', function($scope) {
 
     $scope.tennessee = {
       scope: 'tn_counties',
@@ -70,7 +70,7 @@
         if(!counties) return;
 
         var selectedCountyNames = _.map(counties, function(county) {
-          return county[$scope.key].toLowerNoSpaces();
+          return county[$scope.key].countyMapsToLowerNoSpaces();
         });
 
         $scope.tennessee.data = _.mapObject($scope.tennessee.data, function(countyName) {
@@ -92,7 +92,7 @@
         if(!county || !Object.keys(county).length) 
           return;
 
-        var selectedCountyName = county[$scope.key].toLowerNoSpaces();
+        var selectedCountyName = county[$scope.key].countyMapsToLowerNoSpaces();
         
         if ($scope.selectedCounties.length !== 0)
           $scope.tennessee.data[selectedCountyName] = { 'fillKey' : 'selected' };
@@ -100,7 +100,7 @@
 
     }
 
-    $scope.$on('$destory', deregister);
+    $scope.$on('$destroy', deregister);
 
     //HANDLES ADDING OR DELETING ITEMS FROM selectedCounties. THIS TRIGGERS THE WATCHER
 
@@ -108,10 +108,10 @@
 
       $scope.toggleCounty = function(geography) {
         var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
-          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+          return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
         var clickedCounty = _.find($scope.counties, function(county) {
-          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+          return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
         var idx = $scope.selectedCounties.indexOf(clickedCounty);
         if (!!countyNotSelected.length)
@@ -127,7 +127,7 @@
     } else {
       $scope.toggleCounty = function(geography) {
         var clickedCounty = _.find($scope.counties, function(county) {
-          return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
+          return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
         
         if ($scope.selectedCounties === clickedCounty) {
@@ -142,5 +142,5 @@
         }
       }
     }
-  });
+  }]);
 }());
