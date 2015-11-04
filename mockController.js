@@ -22,7 +22,7 @@
     };
 
     $scope.mapOptions = {
-      'multiple' : false,
+      'multiple' : true,
       'fills' : {
         'selected' : '#0000ff',
         'defaultFill' : '#ff0000'
@@ -30,7 +30,6 @@
       'onAfterCountySelect' : function(newCounty, geography) {
         console.log(newCounty);
         console.log(geography);
-        alert('mock controller callback!');
       }
     }
 

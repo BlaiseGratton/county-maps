@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  //THIS IS FOR THE EDGE CASE OF "VAN BUREN"
-  //"VAN BUREN" -> van_buren
+
+  //EX: "VAN BUREN" -> "van_buren"
   String.prototype.toLowerNoSpaces = function() {
     return this.replace(' ', '_').toLowerCase();
   }
@@ -17,14 +17,10 @@
         dataUrl: '/topo_tn_counties.json',
         highlightOnHover: false
       },
-      mapOptions: {},
       options: {
         staticGeoData: true
       },
-      fills: {
-        'selected': '#a55',
-        'defaultFill': '#cdcdcd'
-      },
+      fills: {},
       data: {},
       setProjection: function(element, options) {
         var offsetWidth = -100;
@@ -46,8 +42,11 @@
     };
 
     if(!!$scope.options.fills) {
-      //TODO
+      $scope.tennessee.fills.selected = $scope.options.fills.selected || '#a55';
+      $scope.tennessee.fills.defaultFill = $scope.options.fills.defaultFill || '#99ccff';
     }
+
+
 
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
     var deregister = $scope.$watch('selectedCounties', function(newVal, oldVal) {
@@ -75,7 +74,6 @@
     $scope.$on('$destory', deregister);
 
     //HANDLES ADDING OR DELETING ITEMS FROM selectedCounties. THIS TRIGGERS THE WATCHER
-    //TODO: IF WE PASS IN A CONFIGURATION OBJECT, THIS COULD RUN A CALLBACK AND PASS IN THE NEW COUNTY
 
     if($scope.options && $scope.options.multiple) {
 
