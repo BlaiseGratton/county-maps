@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-
   //EX: "VAN BUREN" -> "van_buren"
   String.prototype.toLowerNoSpaces = function() {
     return this.replace(' ', '_').toLowerCase();
@@ -20,14 +19,17 @@
       options: {
         staticGeoData: true
       },
-      fills: {},
+      fills: {
+        selected: '#a55',
+        defaultFill: '#9cf'
+      },
       data: {},
       setProjection: function(element, options) {
         var svg = element.childNodes[0];
         svg.attributes.width.value = '849';
         svg.attributes.height.value = '238';
         svg.setAttribute('viewBox', '377 44 800 190');
-        if (!!$scope.options.classes) {
+        if (!!$scope.options && !!$scope.options.classes) {
           $scope.options.classes.forEach(function(className){
             svg.classList.add(className);
           });
@@ -37,26 +39,24 @@
         var offsetHeight = 100;
 
         var projection = d3.geo.mercator()
-            .center([-86.7833, 36.1667])
-            .scale(5000)
-            .rotate([8, 0])
-            .translate([0, 100]);
+          .center([-86.7833, 36.1667])
+          .scale(5000)
+          .rotate([8, 0])
+          .translate([0, 100]);
 
         var path = d3.geo.path().projection(projection);
 
         return {
           path: path,
-          projection: projection
+            projection: projection
         };
       }
     };
 
-    if(!!$scope.options.fills) {
+    if (!!$scope.options && !!$scope.options.fills) {
       $scope.tennessee.fills.selected = $scope.options.fills.selected || '#a55';
       $scope.tennessee.fills.defaultFill = $scope.options.fills.defaultFill || '#99ccff';
     }
-
-
 
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
     var deregister = $scope.$watch('selectedCounties', function(newVal, oldVal) {
@@ -105,22 +105,23 @@
           $scope.options.onAfterCountySelect(clickedCounty, geography);
         }
       }
-
     } else {
       $scope.toggleCounty = function(geography) {
         var clickedCounty = _.find($scope.counties, function(county) {
           return county[$scope.key].toLowerNoSpaces() === geography.id.toLowerNoSpaces();
         });
-
-        $scope.selectedCounties = [clickedCounty];
+        
+        if ($scope.selectedCounties[0] === clickedCounty) {
+          $scope.selectedCounties = [];
+        } else {
+          $scope.selectedCounties = [clickedCounty];
+        }
         $scope.$apply();
 
-        if(!!$scope.options.onAfterCountySelect) {
+        if(!!$scope.options && !!$scope.options.onAfterCountySelect) {
           $scope.options.onAfterCountySelect(clickedCounty, geography);
         }
       }
     }
-
   });
-
 }());

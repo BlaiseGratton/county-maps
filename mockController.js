@@ -3,7 +3,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('countyMap');
+  var app = angular.module('countyMapDemo', ['countyMap', 'checklist-model']);
 
   app.controller('mockController', function($scope) {
 
@@ -15,10 +15,10 @@
 
     $scope.toggleCounty = function(county) {
       var idx = $scope.selectedCounties.indexOf(county);
-      if (idx < 0)
+      /*if (idx < 0)
         $scope.selectedCounties.push(county);
       else
-        $scope.selectedCounties.splice(idx, 1);
+        $scope.selectedCounties.splice(idx, 1);*/
     };
 
     $scope.mapOptions = {
@@ -28,8 +28,9 @@
         'defaultFill' : '#ff0000'
       },
       'onAfterCountySelect' : function(newCounty, geography) {
-        console.log(newCounty);
-        console.log(geography);
+        //$scope.selectedCounties.push(newCounty);
+        //console.log(newCounty);
+        //console.log(geography);
       }
     }
 
