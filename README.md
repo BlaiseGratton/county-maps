@@ -1,14 +1,17 @@
-# TN Datamaps
+# Angular TN County Datamap
 
+An Angular module for selecting Tennessee counties from a svg map.
+
+![Single select example](/county_map_single_snip.PNG)
 
 ### Installation
 
-In your project's root, run 
+In your project's root, run
 ```bash
 npm install tn-datamaps
 ```
 
-In addition to having AngularJS installed, you will need a reference to the following source files: 
+In addition to having AngularJS installed, you will need a reference to the following source files:
 
 * underscore.js
 * d3.js
@@ -84,4 +87,3 @@ app.controller('omgMyController', function() {
 
 });
 ```
-
