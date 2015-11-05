@@ -1,0 +1,32 @@
+<!-- EXAMPLE APPLICATION -->
+
+<!DOCTYPE html>
+<html lang="en" ng-app="countyMapDemo">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body ng-controller="mockController">
+  <county-map
+    selected-counties="selectedCounties"
+    key="name"
+    counties="counties"
+    options="mapOptions">
+  </county-map>
+  <ul>
+    <li ng-repeat="county in counties">
+    <input ng-click="toggleCounty(county)" checklist-model="selectedCounties" 
+        checklist-value="county" type="checkbox">{{ county.name }}
+    </li>
+  </ul>
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/topojson/topojson.js"></script>
+  <script src="bower_components/datamaps/dist/datamaps.all.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-datamaps/dist/angular-datamaps.js"></script>
+  <script src="checklist-model.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="mockController.js"></script>
+  <script src="tnDatamaps.js"></script>
+</body>
+</html>
