@@ -60,26 +60,45 @@
 
     //WATCHES CHANGES TO selectedCounties AND CALLS INTO COLOR COUNTY METHOD.
     var deregister = $scope.$watch('selectedCounties', function(newVal, oldVal) {
-      colorCounties(newVal);
+      $scope.colorCounties(newVal);
     }, true);
 
-    function colorCounties(counties) {
-      if(!counties) return;
 
-      var selectedCountyNames = _.map(counties, function(county) {
-        return county[$scope.key].countyMapsToLowerNoSpaces();
-      });
+    if($scope.options && $scope.options.multiple) {
 
-      $scope.tennessee.data = _.mapObject($scope.tennessee.data, function(countyName) {
-        if(selectedCountyNames.indexOf(countyName) < 0) {
+      $scope.colorCounties = function(counties) {
+        if(!counties) return;
+
+        var selectedCountyNames = _.map(counties, function(county) {
+          return county[$scope.key].countyMapsToLowerNoSpaces();
+        });
+
+        $scope.tennessee.data = _.mapObject($scope.tennessee.data, function(countyName) {
+          if(selectedCountyNames.indexOf(countyName) < 0) {
+            return { 'fillKey' : 'defaultFill' };
+          }
+        });
+
+        selectedCountyNames.forEach(function(countyName){
+          $scope.tennessee.data[countyName] = { 'fillKey' : 'selected' };
+        });
+      };
+    } else {
+      $scope.colorCounties = function(county) {
+        $scope.tennessee.data = _.mapObject($scope.tennessee.data, function(countyName) {
           return { 'fillKey' : 'defaultFill' };
-        }
-      });
+        });
 
-      selectedCountyNames.forEach(function(countyName){
-        $scope.tennessee.data[countyName] = { 'fillKey' : 'selected' };
-      });
-    };
+        if(!county || !Object.keys(county).length) 
+          return;
+
+        var selectedCountyName = county[$scope.key].countyMapsToLowerNoSpaces();
+        
+        if ($scope.selectedCounties.length !== 0)
+          $scope.tennessee.data[selectedCountyName] = { 'fillKey' : 'selected' };
+      };
+
+    }
 
     $scope.$on('$destroy', deregister);
 
@@ -111,10 +130,10 @@
           return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
         
-        if ($scope.selectedCounties[0] === clickedCounty) {
-          $scope.selectedCounties = [];
+        if ($scope.selectedCounties === clickedCounty) {
+          $scope.selectedCounties = null;
         } else {
-          $scope.selectedCounties = [clickedCounty];
+          $scope.selectedCounties = clickedCounty;
         }
         $scope.$apply();
 
