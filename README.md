@@ -87,3 +87,5 @@ app.controller('omgMyController', function() {
 
 });
 ```
+
+![Single select example](/county_map_mutli_snip.PNG)
