@@ -1,5 +1,5 @@
 {
-  "name": "datamaps",
+  "name": "tn-datamaps",
   "version": "0.0.0",
   "authors": [
     "BlaiseGratton <blaise.gratton@tn.gov>",
@@ -11,7 +11,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "/*.PNG"
   ],
   "dependencies": {
     "angular-datamaps": "~0.1.2",
