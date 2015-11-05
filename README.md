@@ -48,13 +48,13 @@ array; for picking single counties, bind it to a single county object.
 - **counties** is the entire list of 95 TN counties. This is probably what you are generating a list or dropdown of counties from.
 
 Example usage:
-```javascript
+```
 <county-map
     selected-counties="selectedCounties"
     key="name"               <!-- { 'id': '107', 'name': 'Davidson', 'district': '3' } -->
     counties="counties"
 </county-map>
-
+```
 
 ##### If needed, $scope.mapOptions can be an object in your controller that has the following properties:
 
