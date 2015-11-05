@@ -12,23 +12,12 @@
       }
     };
 
-    $scope.toggleCounty = function(county) {
-      $scope.selectedCounties = [county];
-      //var idx = $scope.selectedCounties.indexOf(county);
-      /*if (idx < 0)
-        $scope.selectedCounties.push(county);
-      else
-        $scope.selectedCounties.splice(idx, 1);*/
-    };
-
     $scope.mapOptions = {
-      'multiple' : true,
       'fills' : {
         'selected' : '#0000ff',
         'defaultFill' : '#ff0000'
       },
       'onAfterCountySelect' : function(newCounty, geography) {
-        //$scope.selectedCounties = [newCounty];
         //console.log(newCounty);
         //console.log(geography);
       }
