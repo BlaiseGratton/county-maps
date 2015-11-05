@@ -133,5 +133,4 @@
       { Latitude: 36.145523, Longitude: -86.304507, ZoomLevel: 10, name: 'WILSON' }
     ];
   });
-
 }());
