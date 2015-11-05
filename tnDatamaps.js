@@ -48,7 +48,7 @@
 
         return {
           path: path,
-            projection: projection
+          projection: projection
         };
       }
     };
