@@ -13,7 +13,12 @@
     $scope.tennessee = {
       scope: 'tn_counties',
       geographyConfig: {
-        dataUrl: '/topo_tn_counties.json',
+        dataUrl: function() {
+          var url = '/bower_components/tn-datamaps/topo_tn_counties.json';
+          if (!!$scope.options && !!$scope.options.url)
+            url = $scope.options.url;
+          return url;
+        }(),
         highlightOnHover: false
       },
       options: {
