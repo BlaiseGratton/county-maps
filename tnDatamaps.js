@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  
+
   //EX: "VAN BUREN" -> "van_buren"
   String.prototype.countyMapsToLowerNoSpaces = function() {
     return this.replace(' ', '_').toLowerCase();
@@ -89,11 +89,11 @@
           return { 'fillKey' : 'defaultFill' };
         });
 
-        if(!county || !Object.keys(county).length) 
+        if(!county || !Object.keys(county).length)
           return;
 
         var selectedCountyName = county[$scope.key].countyMapsToLowerNoSpaces();
-        
+
         if ($scope.selectedCounties.length !== 0)
           $scope.tennessee.data[selectedCountyName] = { 'fillKey' : 'selected' };
       };
@@ -107,6 +107,8 @@
     if($scope.options && $scope.options.multiple) {
 
       $scope.toggleCounty = function(geography) {
+        $scope.selectedCounties = !!$scope.selectedCounties ? $scope.selectedCounties : [];
+
         var countyNotSelected = _.filter($scope.selectedCounties, function(county) {
           return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
@@ -126,10 +128,12 @@
       }
     } else {
       $scope.toggleCounty = function(geography) {
+        $scope.selectedCounties = !!$scope.selectedCounties ? $scope.selectedCounties : {};
+
         var clickedCounty = _.find($scope.counties, function(county) {
           return county[$scope.key].countyMapsToLowerNoSpaces() === geography.id.countyMapsToLowerNoSpaces();
         });
-        
+
         if ($scope.selectedCounties === clickedCounty) {
           $scope.selectedCounties = null;
         } else {
