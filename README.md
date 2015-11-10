@@ -73,7 +73,7 @@ Example usage:
 | object                         | **fills**               | color object with 'selected' and 'defaultFill' values   |
 | function(newCounty, geography) | **onAfterCountySelect** | callback function to be executed when county is clicked |
 | string[]                       | **classes**             | optional list of classes to add to the svg map element  |
-| string                         | **url**                 | optional path to topo_tn_counties.json file (defaults to '/bower_components/tn-datamaps/topo_tn_counties.json) |
+| string                         | **url**                 | optional path to topo_tn_counties.json file (defaults to '/bower_components/tn-datamaps/topo_tn_counties.json') |
 
 <br>
 #### E.g.:
