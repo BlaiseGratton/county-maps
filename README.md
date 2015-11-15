@@ -11,6 +11,8 @@ An Angular module for selecting Tennessee counties from a svg map.
 In your project's root, run
 ```bash
 bower install tn-datamaps --save
+--OR--
+npm install tn-datamaps --save
 ```
 
 In addition to having AngularJS installed, you will need a reference to the following source files:
