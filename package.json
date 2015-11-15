@@ -1,6 +1,6 @@
 {
   "name": "tn-datamaps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Angular module for binding an interactive map of Tennesse counties with a data source",
   "main": "mapDirective.js",
   "scripts": {
