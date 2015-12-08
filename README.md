@@ -42,7 +42,7 @@ Next, include it in your main angular module:
 var app = angular.module('omgMyAngularApp', ['countyMap']);
 ```
 
-You now have a <county-map></county-map> element available for use!
+You now have a ```<county-map></county-map>``` element available for use!
 <br>
 <br>
 ### Configuration
